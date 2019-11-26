@@ -8,17 +8,53 @@
     <title>Document</title>
     
     <style>
-        html, body {
+        html, body, main {
             padding: 0;
             margin: 0;
             width: 100vw;
             height: 100vh;
         }
+        
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 32px 1fr;
+        }
+        
+        .toolbar {
+            background: #dadada;
+            display: flex;
+            align-items: center;
+            justify-items: flex-end;
+        }
+        
+        button {
+            height: 2rem;
+        }
     </style>
 </head>
 <body>
-    <crs-monaco-editor></crs-monaco-editor>
+    <main>
+        <div class="toolbar">
+            <button id="btnSetValue">Set Value</button>
+            <button id="btnGetValue">Get Value</button>
+        </div>
+        
+        <crs-monaco-editor></crs-monaco-editor>
+    </main>
     
     <script type="module" src="./src/crs-monaco-editor.js"></script>
+    
+    <script>
+        const editor = document.querySelector("crs-monaco-editor");
+        
+        document.querySelector("#btnSetValue").addEventListener("click", () => {
+            editor.value = "const fx = () => console.log('hello world');";
+        })
+        
+        document.querySelector("#btnGetValue").addEventListener("click", () => {
+            console.log(editor.value);
+        })
+    </script>
 </body>
 </html>
