@@ -44,19 +44,19 @@
         <schema-editor for="editor"></schema-editor>
     </main>
     
-    <script type="module" src="./src/crs-monaco-editor.js"></script>
-    <script type="module" src="./extensions/schema-editor.js"></script>
+    <script type="module" src="./publish/crs-monaco-editor.js"></script>
+    <script type="module" src="./publish/extensions/schema-editor.js"></script>
 
     <script>
         const editor = document.querySelector("crs-monaco-editor");
         
         document.querySelector("#btnSetValue").addEventListener("click", () => {
             editor.value = "const fx = () => console.log('hello world');";
-        })
+        });
         
         document.querySelector("#btnGetValue").addEventListener("click", () => {
             console.log(editor.value);
-        })
+        });
     </script>
 </body>
 </html>

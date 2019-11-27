@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "version": "0.0.6",
+    "name": "crs-monaco-editor",
+    "version": "0.0.10",
     "description": "",
     "main": "index.js",
     "directories": {
