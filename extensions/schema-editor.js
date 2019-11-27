@@ -232,6 +232,64 @@ const groupText = `
     ]
 }`;
 
+const actionsText = `
+"actions": [
+    {
+        "id": $1,
+        "action": "$2",
+        "parameters": {
+            $3
+        }
+    }
+],`;
+
+const selectText = `
+{
+    "element": "select",
+    "title": "@titles.$1",
+    "datasource": "model.$2",
+    "field": "model.$3"
+}
+`;
+
+const dateText = `
+{
+    "element": "date",
+    "title": "@titles.$1",
+    "field": "model.$2"
+}`;
+
+const checkboxText = `
+{
+    "element": "checkbox",
+    "styles": "switch",
+    "title": "@titles.$1",
+    "field": "model.$2"
+}`;
+
+const memoText = `
+{
+    "element": "memo",
+    "title": "@titles.$1",
+    "field": "model.$2"
+}`;
+
+const toolbarText = `
+{
+    "element": "div",
+    "styles": ["toolbar", "right"],
+    "elements": [
+        $1      
+    ]
+}`;
+
+const buttonText = `
+{
+    "element": "button",
+    "title": "@translations.$1",
+    "action": $2
+}`;
+
 class SchemaEditor extends HTMLElement {
     get parent() {
         if (this._parent == null) {
@@ -272,6 +330,48 @@ class SchemaEditor extends HTMLElement {
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "group property",
                 insertText: groupText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"select"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "select property",
+                insertText: selectText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"date"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "date property",
+                insertText: dateText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"checkbox"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "checkbox property",
+                insertText: checkboxText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"memo"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "memo property",
+                insertText: memoText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"toolbar"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "toolbar property",
+                insertText: toolbarText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"button"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "button property",
+                insertText: buttonText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
@@ -454,6 +554,13 @@ class SchemaEditor extends HTMLElement {
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "events collection property",
                 insertText: customActionEventsTest.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"actions"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "actions collection property",
+                insertText: actionsText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
