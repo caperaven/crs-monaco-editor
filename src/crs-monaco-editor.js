@@ -20,6 +20,14 @@ class MonacoEditor extends HTMLElement {
     set language(newValue) {
         this._language = newValue;
     }
+
+    get showMiniMap() {
+        return this._showMiniMap || this.getAttribute("show-minimap") || true;
+    }
+
+    set showMiniMap(newValue) {
+        this._showMiniMap = newValue;
+    }
     
     get monaco() {
         return this.frame.contentWindow.monaco;
@@ -38,6 +46,11 @@ class MonacoEditor extends HTMLElement {
         model.getLanguageIdentifier();
         this.monaco.editor.setModelLanguage(model, this.language);
         this.editor.setModel(model);
+        this.editor.updateOptions({
+            minimap: {
+                enabled: this.showMiniMap
+            }
+        })
     }
     
     async connectedCallback() {

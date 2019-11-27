@@ -81,4 +81,24 @@ You can edit this file to your liking to fit your needs.
 
 If you have moved your monaco source other than node_modules or want a different load strategy, go alter that file to your hears content.
 
+## Show and hide minimap
+crs-monaco-editor has a attribute for you to affect the visibility of the minimap (bar on the right).
+If you want to hide the minimap you can set the show-minimap attribute to false. 
+
+```html
+<crs-monaco-editor id="editor" show-minimap="false"></crs-monaco-editor>
+```
+
+The minimap visibility is set when you set the value.  
+If you do not set the attribute it will show by default.
+
+You can also initialize this by default in the crs-monaco-editor-inner.html like this:
+
+```js
+window.editor = monaco.editor.create(document.getElementById('container'), {
+    minimap: {
+        enabled: true
+    }
+});
+```
 
