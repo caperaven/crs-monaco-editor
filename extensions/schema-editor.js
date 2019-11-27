@@ -10,8 +10,7 @@ const documentText = `
         
         ]
     }
-}
-`;
+}`;
 
 
 const bodyText = `
@@ -125,8 +124,7 @@ const resourceItemText = `
 {
     "id": $1,
     "title": "$0"
-}
-`;
+}`;
 
 const perspectivesText = `
 "perspectives": [
@@ -141,8 +139,7 @@ const perspectivesText = `
             }
         }
     }
-],
-`;
+],`;
 
 const processesText = `
 "processes": [
@@ -218,6 +215,23 @@ const triggerActionText = `
 
 const paramterText = '"${1:param}": "${0:value}"';
 
+const inputText = `
+{
+    "element": "input",
+    "title": "@translations.$1",
+    "field": "model.$2",
+    "description": "model.$3"
+},`;
+
+const groupText = `
+{
+    "element": "group",
+    "title": "@titles.$1",
+    "elements": [
+        $2  
+    ]
+}`;
+
 class SchemaEditor extends HTMLElement {
     get parent() {
         if (this._parent == null) {
@@ -244,6 +258,20 @@ class SchemaEditor extends HTMLElement {
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "elements collection property",
                 insertText: elementsText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"input"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "input property",
+                insertText: inputText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"group"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "group property",
+                insertText: groupText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
