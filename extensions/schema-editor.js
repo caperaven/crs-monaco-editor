@@ -23,7 +23,7 @@ const bodyText = `
 
 const elementText = `
 {
-    "element": "",
+    "element": "$0",
     "attributes": {
     },
     "styles": []  
@@ -32,7 +32,7 @@ const elementText = `
 const elementsText = `
 "elements": [
     {
-        "element": ""
+        "element": "$0"
     }
 ]`;
 
@@ -41,6 +41,9 @@ const templatesText = `
     {
         "id": -1,
         "elements": [
+            {
+                "element": "$0"
+            }
         ]
     }
 ],`;
@@ -52,15 +55,16 @@ const datasetText = `
     "fields": [
         {
             "name": "id"
-        }
+        },
+        $0
     ]
 }`;
 
 const datasetsText = `
 "datasets": [
     {
-        "id": -1,
-        "name": "dataset-name",
+        "id": $1,
+        "name": "$0",
         "fields": [
             {
                 "name": "id"
@@ -71,21 +75,21 @@ const datasetsText = `
 
 const fieldText = `
 {
-    "name": ""
+    "name": "$0"
 }`;
 
 const datasourcesText = `
 "datasources": [
     {
         "id": -1,
-        "remote": ""
+        "remote": "$0"
     }
 ],`;
 
 const dataSourceText = `
 {
     "id": -1,
-    "remote": ""
+    "remote": "$0"
 }`;
 
 const resourceDataSourceText = `
@@ -93,8 +97,8 @@ const resourceDataSourceText = `
     "id": -1,
     "resource": [
         {
-            "id": -1,
-            "title": ""
+            "id": $1,
+            "title": "$0"
         }
     ]
 }`;
@@ -102,8 +106,8 @@ const resourceDataSourceText = `
 const perspectivesText = `
 "perspectives": [
     {
-        "id": -1,
-        "id-field": "id",
+        "id": $1,
+        "id-field": "$0",
         "data": {
             "cache": "detail-lookup",
             "aggregate": "count",
@@ -118,14 +122,14 @@ const perspectivesText = `
 const processesText = `
 "processes": [
     {
-        "id": -1,
-        "title": "my process",
+        "id": $1,
+        "title": "$0",
         "steps": [
             {
                 "id": -1,
                 "title": "",
                 "type": "",
-                "next-id": -2,
+                "next-id": -2
             }
         ]
     }
@@ -177,13 +181,15 @@ class SchemaEditor extends HTMLElement {
                 label: '"element"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "element property",
-                insertText: elementText.trim()
+                insertText: elementText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"elements"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "elements collection property",
-                insertText: elementsText.trim()
+                insertText: elementsText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
     }
@@ -194,13 +200,15 @@ class SchemaEditor extends HTMLElement {
                 label: '"dataset"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "dataset object",
-                insertText: datasetText.trim()
+                insertText: datasetText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 "label": '"field"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "field property for dataset",
-                insertText: fieldText.trim()
+                insertText: fieldText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
     }
@@ -211,13 +219,15 @@ class SchemaEditor extends HTMLElement {
                 label: '"datasource"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "datasource object",
-                insertText: dataSourceText.trim()
+                insertText: dataSourceText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"reesource datasource"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "resource datasource object",
-                insertText: resourceDataSourceText.trim()
+                insertText: resourceDataSourceText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
     }
@@ -246,37 +256,43 @@ class SchemaEditor extends HTMLElement {
                 label: '"elements"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "elements collection property",
-                insertText: elementsText.trim()
+                insertText: elementsText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"datasets"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "dataset collection property",
-                insertText: datasetsText.trim()
+                insertText: datasetsText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"datasources"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "dataset collection property",
-                insertText: datasourcesText.trim()
+                insertText: datasourcesText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"perspectives"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "perspective collection property",
-                insertText: perspectivesText.trim()
+                insertText: perspectivesText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"processes"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "processes collection property",
-                insertText: processesText.trim()
+                insertText: processesText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"lookups"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "lookup collection property",
-                insertText: lookupsText.trim()
+                insertText: lookupsText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         ]
     }
