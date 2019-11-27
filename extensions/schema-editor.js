@@ -173,6 +173,36 @@ const lookupText = `
     "datasource": -1
 }`;
 
+const customActionTriggersText = `
+"customActionTriggers": [
+    {
+        "trigger": "model.$1",
+        "actions": [
+            $0
+        ]
+    }
+],`;
+
+const customActionEventsTest = `
+"customActionEvents": [
+    {
+        "event": "$1",
+        "actions": [
+            $0
+        ]
+    }
+],`;
+
+const triggerActionText = `
+{
+    "action": "$1",
+    "condition": "$0",
+    "parameters": {       
+    }
+}`;
+
+const paramterText = '"${1:param}": "${0:value}"';
+
 class SchemaEditor extends HTMLElement {
     get parent() {
         if (this._parent == null) {
@@ -266,6 +296,30 @@ class SchemaEditor extends HTMLElement {
         ]
     }
 
+    get triggerProposal() {
+        return [
+            {
+                label: '"action on trigger"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "action object for a trigger object",
+                insertText: triggerActionText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }
+        ]
+    }
+
+    get parametersProposal() {
+        return [
+            {
+                label: '"parameter"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "parameter",
+                insertText: paramterText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }
+        ]
+    }
+
     get schemaProposals() {
         return [
             {
@@ -323,8 +377,21 @@ class SchemaEditor extends HTMLElement {
                 documentation: "templates collection property",
                 insertText: templatesText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"triggers"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "custom action triggers collection property",
+                insertText: customActionTriggersText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"events"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "events collection property",
+                insertText: customActionEventsTest.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
-
         ]
     }
 
@@ -370,6 +437,12 @@ class SchemaEditor extends HTMLElement {
 
         const isTemplates = textUntilPosition.match(/"templates"\s*/);
         if (isTemplates) result = [...result, ...this.templateProposal];
+
+        const isTriggers = textUntilPosition.match(/"actions"\s*/);
+        if (isTriggers) result = [...result, ...this.triggerProposal];
+
+        const isParam = textUntilPosition.match(/"actions"\s*/);
+        if (isParam) result = [...result, ...this.parametersProposal];
 
         if (position.column <= 6) {
             result = [...result, ...this.schemaProposals];
