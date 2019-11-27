@@ -99,27 +99,34 @@ const collectionFieldText = `
 const datasourcesText = `
 "datasources": [
     {
-        "id": -1,
+        "id": $1,
         "remote": "$0"
     }
 ],`;
 
 const dataSourceText = `
 {
-    "id": -1,
+    "id": $1,
     "remote": "$0"
 }`;
 
 const resourceDataSourceText = `
 {
-    "id": -1,
+    "id": $1,
     "resource": [
         {
-            "id": $1,
+            "id": $2,
             "title": "$0"
         }
     ]
 }`;
+
+const resourceItemText = `
+{
+    "id": $1,
+    "title": "$0"
+}
+`;
 
 const perspectivesText = `
 "perspectives": [
@@ -285,6 +292,19 @@ class SchemaEditor extends HTMLElement {
                 insertText: resourceDataSourceText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
+        ]
+    }
+
+    get resourceProposal() {
+        return [
+            {
+                label: '"resource item"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "resource item object for resource datasource",
+                insertText: resourceItemText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }
+
         ]
     }
 
@@ -459,6 +479,9 @@ class SchemaEditor extends HTMLElement {
 
         const isParam = textUntilPosition.match(/"actions"\s*/);
         if (isParam) result = [...result, ...this.parametersProposal];
+
+        const isResource = textUntilPosition.match(/"resource"\s*/);
+        if (isResource) result = [...result, ...this.resourceProposal];
 
         if (position.column <= 6) {
             result = [...result, ...this.schemaProposals];
