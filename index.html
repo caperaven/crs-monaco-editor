@@ -40,11 +40,13 @@
             <button id="btnGetValue">Get Value</button>
         </div>
         
-        <crs-monaco-editor></crs-monaco-editor>
+        <crs-monaco-editor id="editor"></crs-monaco-editor>
+        <schema-editor for="editor"></schema-editor>
     </main>
     
     <script type="module" src="./src/crs-monaco-editor.js"></script>
-    
+    <script type="module" src="./extensions/schema-editor.js"></script>
+
     <script>
         const editor = document.querySelector("crs-monaco-editor");
         

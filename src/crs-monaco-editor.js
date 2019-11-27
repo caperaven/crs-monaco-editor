@@ -11,7 +11,14 @@ class MonacoEditor extends HTMLElement {
     }
     
     get language() {
-        return this.getAttribute("language") || "javascript";
+        if (this._language == null) {
+            this._language = this.getAttribute("language") || "javascript";
+        }
+        return this._language;
+    }
+
+    set language(newValue) {
+        this._language = newValue;
     }
     
     get monaco() {
@@ -50,12 +57,17 @@ class MonacoEditor extends HTMLElement {
         this.frame.onload = () => {
             this.frame.onload = null;
             this._frameLoaded();
-        }
+        };
         this.frame.src = path;
     }
     
     _frameLoaded() {
-        console.log(this.monaco);
+        this.dispatchEvent(new CustomEvent("loaded", {
+            detail: {
+                monaco: this.monaco,
+                editor: this.editor
+            }
+        }));
     }
 }
 
