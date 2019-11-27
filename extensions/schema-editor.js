@@ -39,7 +39,7 @@ const elementsText = `
 const templatesText = `
 "templates": [
     {
-        "id": -1,
+        "id": $1,
         "elements": [
             {
                 "element": "$0"
@@ -48,9 +48,19 @@ const templatesText = `
     }
 ],`;
 
+const templateText = `
+{
+    "id": $1,
+    "elements": [
+        {
+            "element": "$0"
+        }
+    ]
+}`;
+
 const datasetText = `
 {
-    "id": -1,
+    "id": $1,
     "name": "dataset-name",
     "fields": [
         {
@@ -138,7 +148,7 @@ const processesText = `
 const lookupsText = `
 "lookups": [
     {
-        "id": -1,
+        "id": $0,
         "name": "",
         "mapping": {
             "sourceField": "targetField",
@@ -152,8 +162,8 @@ const lookupsText = `
 
 const lookupText = `
 {
-    "id": -1,
-    "name": "",
+    "id": $1,
+    "name": "$0",
     "mapping": {
         "sourceField": "targetField",
         "sourceField2": "targetField2"
@@ -238,9 +248,21 @@ class SchemaEditor extends HTMLElement {
                 label: '"lookup"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "lookup object",
-                insertText: lookupText.trim()
-            },
+                insertText: lookupText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }
+        ]
+    }
 
+    get templateProposal() {
+        return [
+            {
+                label: '"template"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "template object",
+                insertText: templateText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }
         ]
     }
 
@@ -250,7 +272,8 @@ class SchemaEditor extends HTMLElement {
                 label: '"body"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 document: "root element required for schema",
-                insertText: bodyText.trim()
+                insertText: bodyText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
                 label: '"elements"',
@@ -293,7 +316,15 @@ class SchemaEditor extends HTMLElement {
                 documentation: "lookup collection property",
                 insertText: lookupsText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+            {
+                label: '"templates"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "templates collection property",
+                insertText: templatesText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
+
         ]
     }
 
@@ -336,6 +367,9 @@ class SchemaEditor extends HTMLElement {
 
         const isDatasets = textUntilPosition.match(/"datasets"\s*/);
         if (isDatasets) result = [...result, ...this.datasetsProposal];
+
+        const isTemplates = textUntilPosition.match(/"templates"\s*/);
+        if (isTemplates) result = [...result, ...this.templateProposal];
 
         if (position.column <= 6) {
             result = [...result, ...this.schemaProposals];
