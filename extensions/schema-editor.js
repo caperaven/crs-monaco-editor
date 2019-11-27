@@ -88,6 +88,14 @@ const fieldText = `
     "name": "$0"
 }`;
 
+const collectionFieldText = `
+{
+    "name": "$1",
+    "collection": true,
+    "datasource": $2,
+    "listen-for": "$0"
+}`;
+
 const datasourcesText = `
 "datasources": [
     {
@@ -244,12 +252,20 @@ class SchemaEditor extends HTMLElement {
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             },
             {
-                "label": '"field"',
+                label: '"field"',
                 kind: this.monaco.languages.CompletionItemKind.Property,
                 documentation: "field property for dataset",
                 insertText: fieldText.trim(),
                 insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-            }
+            },
+            {
+                label: '"collection field"',
+                kind: this.monaco.languages.CompletionItemKind.Property,
+                documentation: "collection field property for dataset",
+                insertText: collectionFieldText.trim(),
+                insertTextRules: this.monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            },
+
         ]
     }
 
