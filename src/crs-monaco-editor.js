@@ -75,6 +75,7 @@ class MonacoEditor extends HTMLElement {
     }
     
     _frameLoaded() {
+        this.isReady = true;
         this.dispatchEvent(new CustomEvent("loaded", {
             detail: {
                 monaco: this.monaco,
