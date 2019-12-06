@@ -1,3 +1,5 @@
+import {keywords, operators, functions} from "./ql-language.gen.js";
+
 export const languageName = "mySpecialLanguage";
 export const themeName = "myCoolTheme";
 
@@ -5,28 +7,9 @@ export const language = {
     defaultToken: '',
     tokenPostfix: '.okql',
 
-    // language keywords
-    keywords: [
-        'abstract', 'as', 'break', 'case', 'catch', 'class', 'continue', 'const',
-        'constructor', 'debugger', 'declare', 'default', 'delete', 'do', 'else',
-        'enum', 'export', 'extends', 'false', 'finally', 'for', 'from', 'function',
-        'get', 'if', 'implements', 'import', 'in', 'infer', 'instanceof', 'interface',
-        'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new', 'null', 'package',
-        'private', 'protected', 'public', 'readonly', 'require', 'global', 'return',
-        'set', 'static', 'super', 'switch', 'symbol', 'this', 'throw', 'true', 'try',
-        'type', 'typeof', 'unique', 'var', 'void', 'while', 'with', 'yield', 'async',
-        'await', 'of'
-    ],
-
-    // functions
-    functions: [
-        'pow', 'toLower', 'toUpper'
-    ],
-
-    // operators
-    operators: [
-        '+', '-', '*', '/', '<', ">", "<>", "="
-    ],
+    keywords: keywords,
+    functions: functions,
+    operators: operators,
 
     digits: /\d+(_+\d+)*/,
 
