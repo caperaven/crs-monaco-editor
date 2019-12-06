@@ -7,6 +7,9 @@ import {keywords, operators, functions} from "./ql-language.gen.js";
 export const languageName = "mySpecialLanguage";
 export const themeName = "myCoolTheme";
 
+/**
+ * Rich language features
+ */
 export const richLanguageConfiguration = {
     wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
 
@@ -35,12 +38,15 @@ export const richLanguageConfiguration = {
     ]
 };
 
+/**
+ * Language features defining keywords, functions, operators ...
+ */
 export const language = {
     defaultToken: '',
     tokenPostfix: '.okql',
 
     keywords: keywords,
-    functions: functions,
+    functions: functions.map(item => item.fn),
     operators: operators,
 
     digits: /\d+(_+\d+)*/,

@@ -1,9 +1,13 @@
 import {language, richLanguageConfiguration, languageName, themeName} from "./ql-language.js";
+import {createCompletionItemProvider} from "./ql-completion.js";
 
 globalThis.registerLanguage = (monaco) => {
+    const completionProvider = createCompletionItemProvider(monaco);
+
     monaco.languages.register({ id: languageName });
     monaco.languages.setMonarchTokensProvider(languageName, language);
     monaco.languages.setLanguageConfiguration(languageName, richLanguageConfiguration);
+    monaco.languages.registerCompletionItemProvider(languageName, completionProvider);
 
     monaco.editor.defineTheme(themeName, {
         base: 'vs',
