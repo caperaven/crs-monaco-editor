@@ -1,8 +1,9 @@
-import {language, languageName, themeName} from "./ql-language.js";
+import {language, richLanguageConfiguration, languageName, themeName} from "./ql-language.js";
 
 globalThis.registerLanguage = (monaco) => {
     monaco.languages.register({ id: languageName });
     monaco.languages.setMonarchTokensProvider(languageName, language);
+    monaco.languages.setLanguageConfiguration(languageName, richLanguageConfiguration);
 
     monaco.editor.defineTheme(themeName, {
         base: 'vs',

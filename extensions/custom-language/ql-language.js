@@ -1,7 +1,39 @@
+/**
+ *  This is the language definition describing the language parts and assigning keys to features so that you can use it in things like styles.
+ */
+
 import {keywords, operators, functions} from "./ql-language.gen.js";
 
 export const languageName = "mySpecialLanguage";
 export const themeName = "myCoolTheme";
+
+export const richLanguageConfiguration = {
+    wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
+
+    comments: {
+        lineComment: '//',
+        blockComment: ['/*', '*/']
+    },
+
+    brackets: [
+        ['{', '}'],
+        ['[', ']'],
+        ['(', ')']
+    ],
+
+    __electricCharacterSupport: {
+        docComment: { open: '/**', close: ' */' }
+    },
+
+    autoClosingPairs: [
+        { open: '{', close: '}' },
+        { open: '[', close: ']' },
+        { open: '(', close: ')' },
+        { open: '"', close: '"', notIn: ['string'] },
+        { open: '\'', close: '\'', notIn: ['string', 'comment'] },
+        { open: '`', close: '`' }
+    ]
+};
 
 export const language = {
     defaultToken: '',

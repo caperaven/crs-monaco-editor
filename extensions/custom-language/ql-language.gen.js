@@ -1,3 +1,7 @@
+/**
+ * This file gets generated during compile time from something like antler to be used in your language definition
+ */
+
 export const keywords = [
     'abstract', 'as', 'break', 'case', 'catch', 'class', 'continue', 'const',
     'constructor', 'debugger', 'declare', 'default', 'delete', 'do', 'else',
