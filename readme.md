@@ -1,5 +1,7 @@
 # CRS Monaco Editor
 
+UNDER CONSTRUCTION
+
 ## Introduction
 This is a web component that encapsulates the monaco editor in a custom element for modular use.  
 This is a vanilla web component and is not extensive at all, i just creates a web component wrapper around monaco.
