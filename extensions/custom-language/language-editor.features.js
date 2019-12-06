@@ -13,11 +13,12 @@ globalThis.registerLanguage = (monaco) => {
         base: 'vs',
         inherit: true,
         rules: [
-            { token: 'keyword', foreground: '1a9db0', fontStyle: 'bold' },
-            { token: 'function', foreground: 'FF69B4', fontStyle: 'bold' },
-            { token: 'number', foreground: 'c900c1'},
-            { token: 'number.float', foreground: 'c900c1'},
-            { token: 'number.hex', foreground: 'c900c1'},
+            { token: 'keyword', foreground: '1F4E8C', fontStyle: 'bold' },
+            { token: 'function', foreground: '367350', fontStyle: 'bold' },
+            { token: 'operator', foreground: 'A62121'},
+            { token: 'number', foreground: 'F2B544', fontStyle: 'bold'},
+            { token: 'number.float', foreground: 'F2B544', fontStyle: 'bold'},
+            { token: 'number.hex', foreground: 'F2B544', fontStyle: 'bold'},
         ]
     });
 };

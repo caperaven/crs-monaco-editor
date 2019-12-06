@@ -66,6 +66,7 @@ export const language = {
                 cases: {
                     '@functions': 'function',
                     '@keywords': 'keyword',
+                    '@operators': 'operator',
                     '@default': 'identifier'
                 }
             }],
