@@ -582,6 +582,10 @@ class SchemaEditor extends HTMLElement {
         this.monaco = event.detail.monaco;
         this.parent.removeEventListener("loaded", this._loadedHandler);
 
+        if (window.createEditor != null) {
+            window.createEditor("json", null, true);
+        }
+
         this.parent.language = "json";
         this.parent.value = documentText.trim();
         event.detail.monaco.languages.registerCompletionItemProvider('json', {

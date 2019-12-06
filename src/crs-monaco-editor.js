@@ -34,17 +34,55 @@ class MonacoEditor extends HTMLElement {
     }
     
     get editor() {
-        return this.frame.contentWindow.editor;
+        return this._editor;
+    }
+
+    set editor(newValue) {
+        this._editor = newValue;
     }
     
     get value() {
         return this.editor.getValue();
     }
+
+    get monacoHtml() {
+        return this.getAttribute('html') || import.meta.url.replace(".js", "-inner.html");
+    }
+
+    get autoLoad() {
+        return this.getAttribute("auto-load") == "true";
+    }
     
     set value(newValue) {
-        const model = this.monaco.editor.createModel(newValue);
+        this._value = newValue;
+        this.update();
+    }
+
+    get delayEditor() {
+        return this.getAttribute("delay") == "true" ? true : false;
+    }
+
+    get theme() {
+        if (this._theme == null) {
+            this._theme = this.getAttribute("theme");
+        }
+        return this._theme;
+    }
+
+    set theme(newValue) {
+        this._theme = newValue;
+    }
+
+    // Try and crate the editor here instead of in the html
+    update() {
+        const model = this.monaco.editor.createModel(this._value);
         model.getLanguageIdentifier();
         this.monaco.editor.setModelLanguage(model, this.language);
+
+        if (this.theme != null) {
+            this.monaco.editor.setTheme(this.theme);
+        }
+
         this.editor.setModel(model);
         this.editor.updateOptions({
             minimap: {
@@ -55,33 +93,57 @@ class MonacoEditor extends HTMLElement {
     
     async connectedCallback() {
         const componentHTML = import.meta.url.replace(".js", ".html");
-        const innerHTML = import.meta.url.replace(".js", "-inner.html");
-        
         this.innerHTML = await fetch(componentHTML).then(result => result.text());
-        this._loadInnerPage(innerHTML);
+
+        if (this.autoLoad == true) {
+            const innerHTML = this.monacoHtml;
+            this.loadInnerPage(innerHTML);
+        }
+
+        this.dispatchEvent(new CustomEvent("ready"));
     }
     
     disconnectedCallback() {
         this.frame = null;
         this.innerHTML = "";
+        this.editor = null;
+        this.monaco = null;
+        this.frame = null;
     }
 
-    _loadInnerPage(path) {
+    loadInnerPage(path) {
         this.frame.onload = () => {
             this.frame.onload = null;
             this._frameLoaded();
         };
         this.frame.src = path;
     }
-    
+
     _frameLoaded() {
-        this.isReady = true;
+        this.loadEditor();
         this.dispatchEvent(new CustomEvent("loaded", {
             detail: {
                 monaco: this.monaco,
                 editor: this.editor
             }
         }));
+    }
+
+
+    loadEditor() {
+
+        const options = {
+            language: this.language,
+            minimap: {
+                enabled: this.showMiniMap
+            }
+        };
+
+        if (this.theme != null) {
+            options.theme = this.theme;
+        }
+
+        this.editor = this.monaco.editor.create(this.frame.contentDocument.querySelector("#container"), options);
     }
 }
 

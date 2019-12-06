@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="width:100%;height:100%"></div>
+    <script src="./../../node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="language-editor.register.js" type="module"></script>
+
+    <script>
+        require.config({ paths: { 'vs': './../../node_modules/monaco-editor/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            window.registerLanguage(monaco);
+        });
+    </script>
+</body>
+</html>
