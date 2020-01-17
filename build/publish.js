@@ -10,6 +10,7 @@ class Publish {
         instance.copyFiles("./src/*.html");
         instance.copyFiles("./readme.md");
         instance.copyFiles("./extensions/*.*", "extensions");
+        instance.copyFiles("./extensions/custom-language/*.*", "extensions/custom-language");
         instance.bumpVersion();
     }
     

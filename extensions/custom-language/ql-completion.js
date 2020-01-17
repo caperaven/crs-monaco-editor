@@ -3,6 +3,8 @@ import {functions, keywords, operators} from "./ql-language.gen.js";
 export function createCompletionItemProvider(monaco) {
     const result = {
         provideCompletionItems: function(model, position) {
+            // JHR: Need to add the handling of properties.
+
             const functions = getFunctions(monaco);
             const keywords = getKeywords(monaco);
             const operators = getOperators(monaco);

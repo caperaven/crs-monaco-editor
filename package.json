@@ -1,7 +1,7 @@
 {
     "name": "crs-monaco-editor",
-    "version": "0.0.12",
-    "description": "",
+    "version": "0.0.15",
+    "description": "vanilla webcomponent for using monaco editor",
     "main": "index.js",
     "directories": {
         "test": "test"
@@ -11,8 +11,12 @@
         "bundle": "rollup -c",
         "build-publish": "rollup -c & node build/publish.js"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [
+        "webcomponent",
+        "monaco"
+    ],
+    "author": "Johan Rabie",
+    "homepage": "https://caperaven.co.za/",
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.6.0",
