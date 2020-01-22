@@ -20,15 +20,17 @@ export function createCompletionItemProvider(monaco) {
 
 function getFunctions(monaco) {
     const result = [];
-    for (let fn of functions) {
+
+    functions.forEach((k, v) => {
         result.push({
-            label: fn.fn,
+            label: v,
             kind: monaco.languages.CompletionItemKind.Function,
-            documentation: fn.description,
-            insertText: fn.template,
+            documentation: k.description,
+            insertText: k.template,
             insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
         })
-    }
+    });
+
     return result;
 }
 

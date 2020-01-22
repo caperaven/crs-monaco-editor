@@ -46,7 +46,7 @@ export const language = {
     tokenPostfix: '.okql',
 
     keywords: keywords,
-    functions: functions.map(item => item.fn),
+    functions: Array.from(functions).map(item => item[0]),
     operators: operators,
 
     digits: /\d+(_+\d+)*/,

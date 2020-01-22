@@ -87,6 +87,10 @@ class MonacoEditor extends HTMLElement {
         this.editor.updateOptions({
             minimap: {
                 enabled: this.showMiniMap
+            },
+            parameterHints: {
+                enabled: true,
+                cycle: true
             }
         })
     }
@@ -136,6 +140,10 @@ class MonacoEditor extends HTMLElement {
             language: this.language,
             minimap: {
                 enabled: this.showMiniMap
+            },
+            parameterHints: {
+                enabled: true,
+                cycle: true
             }
         };
 
