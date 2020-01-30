@@ -39,8 +39,15 @@ function getSignatureFor(fnName) {
 }
 
 function getFunctionName(model, position) {
-    const whitespace = model.findPreviousMatch(" ", position.column);
-    if (whitespace == null) return "";
+    let whitespace = model.findPreviousMatch(" ", position.column);
+    if (whitespace == null) {
+        whitespace = {
+            range: {
+                endColumn: 0
+            }
+        }
+    }
+//    if (whitespace == null) return "";
 
     const bracket = model.findNextMatch("(", {column: whitespace.range.endColumn, lineNumber: position.lineNumber});
     if (bracket == null) return "";
@@ -51,5 +58,5 @@ function getFunctionName(model, position) {
     const word = model.getValueInRange({startColumn: start, endColumn: end});
     if (word.indexOf("(") != -1) return "";
 
-    return word;
+    return word.trim();
 }
