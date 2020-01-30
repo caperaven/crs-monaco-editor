@@ -47,7 +47,6 @@ function getFunctionName(model, position) {
             }
         }
     }
-//    if (whitespace == null) return "";
 
     const bracket = model.findNextMatch("(", {column: whitespace.range.endColumn, lineNumber: position.lineNumber});
     if (bracket == null) return "";
