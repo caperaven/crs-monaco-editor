@@ -1,6 +1,6 @@
 {
     "name": "crs-monaco-editor",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "vanilla webcomponent for using monaco editor",
     "main": "index.js",
     "directories": {
