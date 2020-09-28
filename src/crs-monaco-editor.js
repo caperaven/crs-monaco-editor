@@ -111,7 +111,6 @@ class MonacoEditor extends HTMLElement {
         this.frame = null;
         this.innerHTML = "";
         this.editor = null;
-        this.monaco = null;
         this.frame = null;
     }
 
